@@ -6,33 +6,37 @@ const ctx = canvas.getContext("2d");
 
 let score = 0;
 
+// Ball properties
 const BALL = {
   x: canvas.width / 2,
   y: canvas.height / 2,
   radius: 10,
-  speed: 4,
-  dx: 4,
-  dy: -4,
+  speed: 2,
+  dx: 2,
+  dy: -2,
 };
 
+// Paddle properties
 const PADDLE = {
   x: canvas.width / 2 - 35,
   y: canvas.height - 20,
-  w: 75,
+  w: 95,
   h: 8,
   speed: 6,
   dx: 0,
 };
 
+// Brick properties
 const BRICK_INFO = {
-  w: 65,
+  w: 62,
   h: 20,
   padding: 10,
-  offsetX: 65,
+  offsetX: 30,
   offsetY: 50,
-  visbile: true,
+  visible: true,
 };
 
+// The number of bricks in a row and column
 const BRICK_COLUMN_NUMBER = 5;
 const BRICK_ROW_NUMBER = 9;
 
@@ -54,7 +58,7 @@ function drawBricks() {
     columns.forEach((brick) => {
       ctx.beginPath();
       ctx.rect(brick.x, brick.y, brick.w, brick.h);
-      ctx.fillStyle = "#E20097";
+      ctx.fillStyle = brick.visible ? "#E20097" : "transparent";
       ctx.fill();
       ctx.closePath();
     });
@@ -83,11 +87,9 @@ function drawPaddle() {
 
 // Draw score to canvas
 function drawScore() {
-  ctx.beginPath();
   ctx.font = "20px Arial";
   ctx.fillStyle = "#FF92DB";
   ctx.fillText(`Score: ${score}`, 10, 25);
-  ctx.closePath();
 }
 
 // Main draw function (draws everything)
@@ -99,7 +101,7 @@ function draw() {
   drawScore();
 }
 
-// Update the paddles position
+// Move the paddle
 function updatePaddle() {
   PADDLE.x += PADDLE.dx;
 
@@ -110,9 +112,71 @@ function updatePaddle() {
   }
 }
 
+// Move the ball
+function updateBall() {
+  BALL.x += BALL.dx;
+  BALL.y += BALL.dy;
+
+  // Check for wall collisions
+  // top and bottom
+  if (BALL.y - BALL.radius < 0 || BALL.y + BALL.radius > canvas.height) {
+    BALL.dy *= -1;
+    // right and left
+  } else if (BALL.x + BALL.radius > canvas.width || BALL.x - BALL.radius < 0) {
+    BALL.dx *= -1;
+  }
+
+  // Check for brick collision
+  bricks.forEach((column) => {
+    column.forEach((brick) => {
+      if (brick.visible) {
+        if (
+          BALL.x - BALL.radius > brick.x && // Left side
+          BALL.x + BALL.radius < brick.x + brick.w && // right side
+          BALL.y - BALL.radius < brick.y + brick.h && // top side
+          BALL.y + BALL.radius > brick.y // bottom side
+        ) {
+          brick.visible = false;
+          BALL.dy *= -1;
+          incrementScore();
+        }
+      }
+    });
+  });
+
+  // Check for paddle collision
+  if (
+    BALL.x - BALL.radius > PADDLE.x &&
+    BALL.x + BALL.radius < PADDLE.x + PADDLE.w &&
+    BALL.y + BALL.radius > PADDLE.y
+  ) {
+    BALL.dy *= -1;
+  }
+
+  // Check if paddle missed the ball (hit bottom wall)
+  if (BALL.y + BALL.radius > canvas.height) {
+    regenerateBricks();
+    score = 0;
+  }
+}
+
+function incrementScore() {
+  score++;
+
+  if (score % (BRICK_COLUMN_NUMBER * BRICK_ROW_NUMBER) === 0)
+    regenerateBricks();
+}
+
+function regenerateBricks() {
+  bricks.forEach((column) => {
+    column.forEach((brick) => (brick.visible = true));
+  });
+}
+
 // Main update funtion
 function update() {
   updatePaddle();
+  updateBall();
 
   console.log(PADDLE.dx);
 }
