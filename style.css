@@ -78,6 +78,7 @@ canvas {
   display: block;
 }
 
+/* Leaderboard/table */
 .leaderboard {
   margin-left: 50px;
   overflow: auto;
@@ -104,4 +105,22 @@ td:nth-child(2) {
   max-width: 300px;
   min-width: 100px;
   word-break: break-all;
+}
+
+/* Leaderboard Scroll Bar */
+/* width */
+::-webkit-scrollbar {
+  width: 15px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(158, 139, 209);
+  border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(143, 151, 199);
+  border-radius: 10px;
 }
