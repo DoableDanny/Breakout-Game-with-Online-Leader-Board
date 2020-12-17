@@ -38,101 +38,15 @@ include("dbConnect.php");
             <th>Name</th>
             <th>Points</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
+
+          <?php foreach($scores as $key=>$score): ?>
+            <tr>
+            <td><?php echo $key + 1 ?></td>
+            <td><?php echo $score['name'] ?></td>
+            <td><?php echo $score['score'] ?></td>
           </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jackson</td>
-            <td>94</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Jacksonator132ThemainDude</td>
-            <td>100</td>
-          </tr>
-          <tr>
-            <td>1</td>
-            <td>Smith</td>
-            <td>50</td>
-          </tr>
+          <?php endforeach ?>
+         
         </table>
       </div>
     </div>
