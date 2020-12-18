@@ -1,6 +1,7 @@
 const rulesBtn = document.getElementById("btn-rules");
 const rules = document.getElementById("rules");
 const closeBtn = document.getElementById("btn-close");
+// const formContainer = document.getElementById("form-leaderboard-container");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -156,6 +157,7 @@ function updateBall() {
   // Check if paddle missed the ball (hit bottom wall)
   if (BALL.y + BALL.radius > canvas.height) {
     regenerateBricks();
+    if (score > 1) sendScore();
     score = 0;
   }
 }
@@ -190,6 +192,24 @@ function main() {
 }
 
 main();
+
+// Send score to PHP
+function sendScore() {
+  const form = document.createElement("form");
+  form.method = "post";
+  form.action = "./";
+
+  const hiddenField = document.createElement("input");
+  hiddenField.type = "hidden";
+  hiddenField.name = "score";
+  hiddenField.value = score;
+
+  form.appendChild(hiddenField);
+
+  document.body.appendChild(form);
+
+  form.submit();
+}
 
 // If arrow left or right is pressed down, give the paddle speed
 function handleKeyDown(e) {

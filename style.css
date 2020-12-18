@@ -68,7 +68,7 @@ h1 {
   transform: scale(0.95);
 }
 
-.game-and-leaderboard {
+.game-leaderboard-container {
   display: flex;
 }
 
@@ -78,49 +78,41 @@ canvas {
   display: block;
 }
 
-/* Leaderboard/table */
-.leaderboard {
-  margin-left: 50px;
-  overflow: auto;
-  max-height: 80vh;
-  max-width: 350px;
+.form-leaderboard-container {
+  margin-left: 20px;
+  max-width: 400px;
+  min-width: 200px;
+  margin-right: 10px;
 }
 
-th {
-  border-bottom: 0.5px solid #9b9696;
+input {
+  width: 100%;
+  padding: 4px 0;
+  margin-bottom: 15px;
+  border-radius: 5px;
+  font-size: 1.1rem;
 }
 
-td {
-  border-right: 0.5px solid #9b9696;
-  border-bottom: 0.5px solid #9b9696;
-  padding: 5px;
+input[type="text"] {
+  background-color: rgb(244, 238, 248);
+}
+
+input[type="submit"] {
+  background-color: #e42aa6;
+  color: #fff;
+}
+
+table {
+  width: 100%;
   text-align: center;
 }
 
-td:first-child {
-  border-left: 0.5px solid #9b9696;
-}
-
-td:nth-child(2) {
-  max-width: 300px;
-  min-width: 100px;
+td {
+  padding: 3px;
   word-break: break-all;
+  border-bottom: 0.5px solid gray;
 }
 
-/* Leaderboard Scroll Bar */
-/* width */
-::-webkit-scrollbar {
-  width: 15px;
-}
-
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 5px rgb(158, 139, 209);
-  border-radius: 5px;
-}
-
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: rgb(143, 151, 199);
-  border-radius: 10px;
+th {
+  border-bottom: 0.5px solid gray;
 }
