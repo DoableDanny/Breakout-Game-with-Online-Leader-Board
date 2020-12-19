@@ -2,8 +2,8 @@
 
 include("dbConnect.php");
 
-$username = "";
 $score = 0;
+$username = "";
 
 session_start();
 
@@ -11,22 +11,33 @@ session_start();
 if(isset($_POST['username'])) {
   $username = $_POST['username'];
   $_SESSION['username'] = $username;
-}
-
-// If no session score, then set one. If have session score, check if new high score.
-if(isset($_POST['score']) && $username !== "") {
-  $score = $_POST['score'];
-  if(!isset($_SESSION['high-score'])) {
-    $_SESSION['high-score'] = $score;
-  } else if($score > $_SESSION['high-score']) {
-    $_SESSION['high-score'] = $score;
+  // Get users score from db. If exists, save score to SESSION.
+  $user =  getUser($username);
+  if(isset($user['score'])) {
+    $_SESSION['high-score'] = $user['score'];
+  } else {
+    unset($_SESSION['high-score']);
   }
 }
 
-// Get names and scores from db
-$sql = 'SELECT name, score FROM leaderboard ORDER BY score DESC';
-$result = mysqli_query($conn, $sql);
-$scores = mysqli_fetch_all($result, MYSQLI_ASSOC);
+
+// If no session score, then set one. If have session score, check if new high score.
+if(isset($_POST['score']) && isset($_SESSION['username'])) {
+  $username = $_SESSION['username'];
+  $score = $_POST['score'];
+  if(!isset($_SESSION['high-score'])) {
+    $_SESSION['high-score'] = $score;
+    // insert new high score record to db
+    saveScore($username, $score);
+  } else if($score > $_SESSION['high-score']) {
+    $_SESSION['high-score'] = $score;
+    // update high score in db
+    updateScore($username, $score);
+  }
+}
+
+// Get all names and scores from db
+$scores = getAllScores();
 
 ?>
 
@@ -43,8 +54,8 @@ $scores = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
 <body>
   <h1>DEV_OUT!</h1>
-  <p>High Score:
-    <?php echo isset($_SESSION['high-score']) ? $_SESSION['high-score'] : "Please sign in to save your score" ?>
+  <p><span class="high-score">High Score:</span>
+    <?php echo isset($_SESSION['high-score']) ? htmlspecialchars($_SESSION['high-score']) : "Please sign in to save your score" ?>
   </p>
   <button class="btn btn-rules" id="btn-rules">Rules</button>
   <div class="rules" id="rules">
@@ -62,7 +73,7 @@ $scores = mysqli_fetch_all($result, MYSQLI_ASSOC);
 
     <div class="form-leaderboard-container">
       <p>
-        <?php echo isset($_SESSION['username']) ? "Enter you twitter username to take part!" : "Hi {$_SESSION['username']}" ?>
+        <?php echo isset($_SESSION['username']) ? "Hi " . htmlspecialchars($_SESSION['username']) : "Enter you twitter username to take part!" ?>
       </p>
       <form action="./" method="POST">
         <input type="text" name="username" value="@" required>

@@ -1,7 +1,6 @@
 const rulesBtn = document.getElementById("btn-rules");
 const rules = document.getElementById("rules");
 const closeBtn = document.getElementById("btn-close");
-// const formContainer = document.getElementById("form-leaderboard-container");
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 

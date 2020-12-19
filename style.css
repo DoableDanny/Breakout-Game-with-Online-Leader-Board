@@ -19,6 +19,15 @@ h1 {
   margin-top: 0;
 }
 
+p {
+  font-size: 1.1rem;
+}
+
+.high-score {
+  color: #ff40bf;
+  font-size: 1.1rem;
+}
+
 .rules {
   position: absolute;
   left: 0;
@@ -98,7 +107,7 @@ input[type="text"] {
 }
 
 input[type="submit"] {
-  background-color: #e42aa6;
+  background-color: #e20d9b;
   color: #fff;
 }
 
