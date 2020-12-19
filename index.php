@@ -65,6 +65,7 @@ $scores = getAllScores();
       and break the blocks.
     </p>
     <p>If you miss the ball, your score and the blocks will reset.</p>
+    <p>Game gets harder between levels 😈</p>
     <button class="btn btn-close" id="btn-close">Close Rules</button>
   </div>
 
@@ -76,7 +77,7 @@ $scores = getAllScores();
         <?php echo isset($_SESSION['username']) ? "Hi " . htmlspecialchars($_SESSION['username']) : "Enter you twitter username to take part!" ?>
       </p>
       <form action="./" method="POST">
-        <input type="text" name="username" value="@" required>
+        <input type="text" name="username" value="@" id="username-input" required>
         <input type="submit" value="Submit" class="btn">
       </form>
       <div class="leaderboard">

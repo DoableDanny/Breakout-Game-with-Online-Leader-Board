@@ -1,10 +1,12 @@
-const rulesBtn = document.getElementById("btn-rules");
-const rules = document.getElementById("rules");
-const closeBtn = document.getElementById("btn-close");
-const canvas = document.getElementById("canvas");
-const ctx = canvas.getContext("2d");
+const rulesBtn = document.getElementById('btn-rules');
+const rules = document.getElementById('rules');
+const closeBtn = document.getElementById('btn-close');
+const usernameInput = document.getElementById('username-input');
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
 
 let score = 0;
+let animationFrameId;
 
 // Ball properties
 const BALL = {
@@ -58,7 +60,7 @@ function drawBricks() {
     columns.forEach((brick) => {
       ctx.beginPath();
       ctx.rect(brick.x, brick.y, brick.w, brick.h);
-      ctx.fillStyle = brick.visible ? "#E20097" : "transparent";
+      ctx.fillStyle = brick.visible ? '#E20097' : 'transparent';
       ctx.fill();
       ctx.closePath();
     });
@@ -69,10 +71,10 @@ function drawBricks() {
 function drawBall() {
   ctx.beginPath();
   ctx.arc(BALL.x, BALL.y, BALL.radius, 0, Math.PI * 2);
-  ctx.fillStyle = "#75AC4D";
+  ctx.fillStyle = '#75AC4D';
   ctx.fill();
   ctx.stroke();
-  ctx.lineWidth = "0.1";
+  ctx.lineWidth = '0.1';
   ctx.closePath();
 }
 
@@ -80,15 +82,15 @@ function drawBall() {
 function drawPaddle() {
   ctx.beginPath();
   ctx.rect(PADDLE.x, PADDLE.y, PADDLE.w, PADDLE.h);
-  ctx.fillStyle = "#FF92DB";
+  ctx.fillStyle = '#FF92DB';
   ctx.fill();
   ctx.closePath();
 }
 
 // Draw score to canvas
 function drawScore() {
-  ctx.font = "20px Arial";
-  ctx.fillStyle = "#FF92DB";
+  ctx.font = '20px Arial';
+  ctx.fillStyle = '#FF92DB';
   ctx.fillText(`Score: ${score}`, 10, 25);
 }
 
@@ -187,20 +189,20 @@ function main() {
   update();
   draw();
 
-  window.requestAnimationFrame(main);
+  animationFrameId = window.requestAnimationFrame(main);
 }
 
 main();
 
 // Send score to PHP
 function sendScore() {
-  const form = document.createElement("form");
-  form.method = "post";
-  form.action = "./";
+  const form = document.createElement('form');
+  form.method = 'post';
+  form.action = './';
 
-  const hiddenField = document.createElement("input");
-  hiddenField.type = "hidden";
-  hiddenField.name = "score";
+  const hiddenField = document.createElement('input');
+  hiddenField.type = 'hidden';
+  hiddenField.name = 'score';
   hiddenField.value = score;
 
   form.appendChild(hiddenField);
@@ -212,9 +214,9 @@ function sendScore() {
 
 // If arrow left or right is pressed down, give the paddle speed
 function handleKeyDown(e) {
-  if (e.key === "Right" || e.key === "ArrowRight") {
+  if (e.key === 'Right' || e.key === 'ArrowRight') {
     PADDLE.dx = PADDLE.speed;
-  } else if (e.key === "Left" || e.key === "ArrowLeft") {
+  } else if (e.key === 'Left' || e.key === 'ArrowLeft') {
     PADDLE.dx = -PADDLE.speed;
   }
 }
@@ -222,19 +224,33 @@ function handleKeyDown(e) {
 // When arrow left or right key lifted, remove paddle's speed
 function handleKeyUp(e) {
   if (
-    e.key === "Right" ||
-    e.key === "ArrowRight" ||
-    e.key === "Left" ||
-    e.key === "ArrowLeft"
+    e.key === 'Right' ||
+    e.key === 'ArrowRight' ||
+    e.key === 'Left' ||
+    e.key === 'ArrowLeft'
   ) {
     PADDLE.dx = 0;
   }
 }
 
 // Event listeners to move paddle
-document.addEventListener("keydown", handleKeyDown);
-document.addEventListener("keyup", handleKeyUp);
+document.addEventListener('keydown', handleKeyDown);
+document.addEventListener('keyup', handleKeyUp);
 
 // Rules show and close btns event listeners
-rulesBtn.addEventListener("click", () => rules.classList.add("show"));
-closeBtn.addEventListener("click", () => rules.classList.remove("show"));
+rulesBtn.addEventListener('click', () => {
+  rules.classList.add('show');
+  window.cancelAnimationFrame(animationFrameId);
+});
+closeBtn.addEventListener('click', () => {
+  rules.classList.remove('show');
+  window.requestAnimationFrame(main);
+});
+
+// Event listeners for username input to pause game
+usernameInput.addEventListener('focus', () => {
+  window.cancelAnimationFrame(animationFrameId);
+});
+usernameInput.addEventListener('focusout', () => {
+  animationFrameId = window.requestAnimationFrame(main);
+});
