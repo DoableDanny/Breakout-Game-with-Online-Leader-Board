@@ -1,6 +1,6 @@
 <?php 
 
-include("dbFunctions.php");
+include "dbFunctions.php";
 
 $score = 0;
 $username = "";
