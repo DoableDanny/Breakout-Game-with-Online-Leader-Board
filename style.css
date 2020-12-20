@@ -16,11 +16,14 @@ body {
 
 h1 {
   font-size: 40px;
-  margin-top: 0;
+  margin-top: 0px;
+  padding-top: 0;
+  margin-bottom: 10px;
 }
 
 p {
   font-size: 1.1rem;
+  margin: 3px;
 }
 
 .high-score {
@@ -88,7 +91,7 @@ canvas {
 }
 
 .form-leaderboard-container {
-  margin-left: 20px;
+  margin-left: 30px;
   max-width: 400px;
   min-width: 200px;
   margin-right: 10px;
@@ -102,11 +105,11 @@ input {
   font-size: 1.1rem;
 }
 
-input[type="text"] {
+input[type='text'] {
   background-color: rgb(244, 238, 248);
 }
 
-input[type="submit"] {
+input[type='submit'] {
   background-color: #e20d9b;
   color: #fff;
 }

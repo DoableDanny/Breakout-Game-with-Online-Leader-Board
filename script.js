@@ -2,10 +2,12 @@ const rulesBtn = document.getElementById('btn-rules');
 const rules = document.getElementById('rules');
 const closeBtn = document.getElementById('btn-close');
 const usernameInput = document.getElementById('username-input');
+const levelElement = document.getElementById('level');
 const canvas = document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 let score = 0;
+let level = 1;
 let animationFrameId;
 
 // Ball properties
@@ -22,7 +24,7 @@ const BALL = {
 const PADDLE = {
   x: canvas.width / 2 - 35,
   y: canvas.height - 20,
-  w: 95,
+  w: 130,
   h: 8,
   speed: 6,
   dx: 0,
@@ -30,17 +32,17 @@ const PADDLE = {
 
 // Brick properties
 const BRICK_INFO = {
-  w: 62,
+  w: 115,
   h: 20,
   padding: 10,
-  offsetX: 30,
-  offsetY: 50,
+  offsetX: 20,
+  offsetY: 40,
   visible: true,
 };
 
 // The number of bricks in a row and column
-const BRICK_COLUMN_NUMBER = 5;
-const BRICK_ROW_NUMBER = 9;
+const BRICK_COLUMN_NUMBER = 3;
+const BRICK_ROW_NUMBER = 5;
 
 // Create bricks
 const bricks = [];
@@ -166,14 +168,49 @@ function updateBall() {
 function incrementScore() {
   score++;
 
-  if (score % (BRICK_COLUMN_NUMBER * BRICK_ROW_NUMBER) === 0)
+  // Check if all bricks broken
+  if (score % (BRICK_COLUMN_NUMBER * BRICK_ROW_NUMBER) === 0) {
     regenerateBricks();
+    nextLevel();
+  }
 }
 
 function regenerateBricks() {
   bricks.forEach((column) => {
     column.forEach((brick) => (brick.visible = true));
   });
+}
+
+// Increase ball speed and level number
+function nextLevel() {
+  if (!isNaN(level)) level++;
+
+  switch (level) {
+    case 2:
+      BALL.dx = 2.5;
+      break;
+    case 3:
+      BALL.dx = 2;
+      BALL.dy = -2.5;
+      break;
+    case 4:
+      BALL.dx = 3;
+      BALL.dy = -3;
+      break;
+    case 5:
+      BALL.dx = 3.5;
+      BALL.dy = -3.5;
+      break;
+    default:
+      level = 'ROAD TO DEATH 💀';
+      BALL.dx += 0.5;
+      BALL.dy -= 0.5;
+      break;
+  }
+
+  levelElement.innerHTML = !isNaN(level)
+    ? `<span class="high-score">Level: </span>${level} / 5`
+    : level;
 }
 
 // Main update funtion

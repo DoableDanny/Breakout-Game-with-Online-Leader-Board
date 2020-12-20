@@ -54,9 +54,13 @@ $scores = getAllScores();
 
 <body>
   <h1>DEV_OUT!</h1>
-  <p><span class="high-score">High Score:</span>
-    <?php echo isset($_SESSION['high-score']) ? htmlspecialchars($_SESSION['high-score']) : "Please sign in to save your score" ?>
-  </p>
+  <div class="level-and-score-wrapper">
+    <p id="level"><span class="high-score">Level: </span>1 / 5</p>
+    <p><span class="high-score">High Score:</span>
+      <?php echo isset($_SESSION['high-score']) ? htmlspecialchars($_SESSION['high-score']) : "Please sign in to save your score" ?>
+    </p>
+  </div>
+
   <button class="btn btn-rules" id="btn-rules">Rules</button>
   <div class="rules" id="rules">
     <h3>Rules</h3>
@@ -70,7 +74,7 @@ $scores = getAllScores();
   </div>
 
   <div class="game-leaderboard-container">
-    <canvas id="canvas" width="700" height="600"></canvas>
+    <canvas id="canvas" width="650" height="550"></canvas>
 
     <div class="form-leaderboard-container">
       <p>
