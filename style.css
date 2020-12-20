@@ -23,7 +23,7 @@ h1 {
 
 p {
   font-size: 1.1rem;
-  margin: 3px;
+  margin: 5px;
 }
 
 .high-score {
@@ -59,6 +59,10 @@ p {
   left: 50px;
 }
 
+.btn-close {
+  margin-top: 15px;
+}
+
 .btn {
   padding: 10px 20px;
   background-color: #653eb9;
@@ -92,7 +96,7 @@ canvas {
 
 .form-leaderboard-container {
   margin-left: 30px;
-  max-width: 400px;
+  max-width: 450px;
   min-width: 200px;
   margin-right: 10px;
 }
@@ -112,6 +116,13 @@ input[type='text'] {
 input[type='submit'] {
   background-color: #e20d9b;
   color: #fff;
+}
+
+.invalid-name-error {
+  color: rgb(252, 56, 56);
+  margin-top: 0;
+  padding: 0;
+  margin-bottom: 15px;
 }
 
 table {

@@ -160,7 +160,7 @@ function updateBall() {
   // Check if paddle missed the ball (hit bottom wall)
   if (BALL.y + BALL.radius > canvas.height) {
     regenerateBricks();
-    if (score > 1) sendScore();
+    sendScore();
     score = 0;
   }
 }

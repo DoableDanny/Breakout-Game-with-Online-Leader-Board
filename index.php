@@ -4,19 +4,24 @@ include("dbConnect.php");
 
 $score = 0;
 $username = "";
+$invalidNameError = "";
 
 session_start();
 
 // Check if submitted username
 if(isset($_POST['username'])) {
-  $username = $_POST['username'];
-  $_SESSION['username'] = $username;
-  // Get users score from db. If exists, save score to SESSION.
-  $user =  getUser($username);
-  if(isset($user['score'])) {
-    $_SESSION['high-score'] = $user['score'];
+  if(!preg_match("/^@?(\w){1,15}$/", $_POST['username'])) {
+    $invalidNameError = $_POST['username'] . ' is not a valid twitter username';
   } else {
-    unset($_SESSION['high-score']);
+    $username = $_POST['username'];
+    $_SESSION['username'] = $username;
+    // Get users score from db. If exists, save score to SESSION.
+    $user =  getUser($username);
+    if(isset($user['score'])) {
+      $_SESSION['high-score'] = $user['score'];
+    } else {
+      unset($_SESSION['high-score']);
+    }
   }
 }
 
@@ -82,6 +87,7 @@ $scores = getAllScores();
       </p>
       <form action="./" method="POST">
         <input type="text" name="username" value="@" id="username-input" required>
+        <p class="invalid-name-error"><?php echo $invalidNameError ?></p>
         <input type="submit" value="Submit" class="btn">
       </form>
       <div class="leaderboard">
