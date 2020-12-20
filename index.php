@@ -79,7 +79,7 @@ $scores = getAllScores();
   </div>
 
   <div class="game-leaderboard-container">
-    <canvas id="canvas" width="650" height="550"></canvas>
+    <canvas id="canvas" width="640" height="530"></canvas>
 
     <div class="form-leaderboard-container">
       <p>
@@ -109,6 +109,11 @@ $scores = getAllScores();
     </div>
 
   </div>
+  <footer>
+    Subscribe to <a href=" https://www.youtube.com/channel/UC0URylW_U4i26wN231yRqvA?view_as=subscriber"
+      target="_blank">my YouTube
+      channel</a> for coding tutorials 🙏.
+  </footer>
 </body>
 
 </html>

@@ -32,17 +32,17 @@ const PADDLE = {
 
 // Brick properties
 const BRICK_INFO = {
-  w: 115,
-  h: 20,
+  w: 140,
+  h: 18,
   padding: 10,
-  offsetX: 20,
+  offsetX: 24,
   offsetY: 40,
   visible: true,
 };
 
 // The number of bricks in a row and column
 const BRICK_COLUMN_NUMBER = 3;
-const BRICK_ROW_NUMBER = 5;
+const BRICK_ROW_NUMBER = 4;
 
 // Create bricks
 const bricks = [];
@@ -187,14 +187,13 @@ function nextLevel() {
 
   switch (level) {
     case 2:
-      BALL.dx = 2.5;
+      BALL.dy = -2.5;
       break;
     case 3:
-      BALL.dx = 2;
+      BALL.dx = 2.5;
       BALL.dy = -2.5;
       break;
     case 4:
-      BALL.dx = 3;
       BALL.dy = -3;
       break;
     case 5:

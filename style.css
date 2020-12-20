@@ -18,17 +18,16 @@ body {
 h1 {
   font-size: 40px;
   margin-top: 0px;
-  padding-top: 0;
+  padding-top: 5px;
   margin-bottom: 10px;
 }
 
 p {
   font-size: 1.1rem;
-  margin: 5px;
 }
 
 .level-and-score-wrapper p {
-  margin-top: 10px;
+  margin-top: 5px;
 }
 
 .high-score {
@@ -131,7 +130,7 @@ input[type='submit'] {
 }
 
 .leaderboard-container {
-  max-height: 400px;
+  max-height: 380px;
   overflow: auto;
 }
 
@@ -165,4 +164,14 @@ th {
 ::-webkit-scrollbar-thumb {
   background: #653eb9;
   border-radius: 10px;
+}
+
+footer {
+  margin-bottom: 40px;
+  margin-top: 15px;
+  color: #c4a8ff;
+}
+
+footer a {
+  color: #f772cb;
 }
