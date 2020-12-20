@@ -4,7 +4,7 @@
 // include('dbConfigDev.php');
 
 // DB config and connect for Heroku deployment only
-include('dbConfigHeroku');
+include('dbConfigHeroku.php');
 
 if(!$conn) {
     echo "Connection error: " . mysqli_connect_error();
