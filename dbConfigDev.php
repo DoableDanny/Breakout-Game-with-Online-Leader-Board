@@ -1,5 +1,5 @@
 <?php
-// Connecting to development database using variables from .env file.
+// Include this file in dbFunctions for local development only
 
 require_once("vendor/autoload.php");
 // Load in DB connection vars
