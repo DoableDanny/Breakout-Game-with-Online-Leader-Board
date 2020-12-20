@@ -1,11 +1,10 @@
 <?php
-require_once("vendor/autoload.php");
-// Load in DB connection vars
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
 
-// Connect to db
-$conn = mysqli_connect($_ENV['HOST'], $_ENV['USERNAME'], $_ENV['PW'], $_ENV['DB']);
+// DB cofig and connect for development only
+// include('dbConfigDev.php');
+
+// DB config and connect for Heroku deployment only
+include('dbConfigHeroku');
 
 if(!$conn) {
     echo "Connection error: " . mysqli_connect_error();

@@ -1,6 +1,6 @@
 <?php 
 
-include("dbConnect.php");
+include("dbFunctions.php");
 
 $score = 0;
 $username = "";
@@ -90,7 +90,7 @@ $scores = getAllScores();
         <p class="invalid-name-error"><?php echo $invalidNameError ?></p>
         <input type="submit" value="Submit" class="btn">
       </form>
-      <div class="leaderboard">
+      <div class="leaderboard-container">
         <table>
           <tr>
             <th>Place</th>
